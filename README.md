@@ -27,11 +27,16 @@ Most OEE spreadsheets average percentages across lines and shifts, which quietly
 
 The supplied production extract contains 15,394 rows covering downtime events and production records across 12 lines and 3 shifts, including planned time, run time, output, rejects, a stored reason code, a planned or unplanned category, an operator description and a legacy OEE field. Cleaning followed eleven documented steps, one per worksheet (C1 to C11).
 
+<img width="1102" height="340" alt="Screenshot 2026-09-28 at 23 06 11" src="https://github.com/user-attachments/assets/5c10521c-8c84-4a44-b41f-72ef36fb3d92" />
+
+
 Three data issues shaped the analysis and are worth stating plainly:
 
 * 87 percent of stored reason codes contradict the operator's written description of the same event. The stored code and the planned or unplanned category were therefore replaced with a governed taxonomy derived from the description.
 * The legacy OEE field cannot be rebuilt from its own availability, performance and quality components, so it was retained only for comparison.
 * machine_id, operator_id and fault_code are unique on every record, so they carry no repeated observations. Fingerprints are therefore built at line level, the finest grain the data can support.
+
+<img width="1144" height="292" alt="Screenshot 2026-09-28 at 23 07 21" src="https://github.com/user-attachments/assets/51945ad4-beb0-4d85-a178-6f46cd067369" />
 
 ## Results at a glance
 
@@ -66,29 +71,51 @@ Three data issues shaped the analysis and are worth stating plainly:
 
 The governed calculation puts plant OEE at 41.4 percent, against 63.0 percent in the legacy reporting field. That gap of 21.5 points is not a rounding difference; it means roughly a third of the performance leadership believed it had does not exist. The legacy figure cannot be reconstructed from its own components, which suggests it has been averaged, overwritten or calculated inconsistently over time. The practical consequence is significant. Targets, bonuses, capacity plans and investment cases built on the reported figure have all been anchored to a level of effectiveness the plant is not achieving. Put simply, fewer than half of the scheduled machine hours are currently producing good parts at the ideal rate.
 
+<img width="550" height="349" alt="Screenshot 2026-09-28 at 23 08 18" src="https://github.com/user-attachments/assets/d49e0642-a731-4951-8abd-afb51b18bca3" />
+
 ### 2. Availability and performance are where the capacity is being lost
 
 Breaking OEE into its components shows availability at 70.0 percent and performance at 69.7 percent, with quality at 84.9 percent. Around 30 percent of scheduled time is lost to stoppages, and when machines are running they deliver only about 70 percent of their ideal output. These two pillars together account for most of the gap between the plant and a healthy OEE, so they should receive the bulk of improvement attention. Quality is the strongest of the three, but it should not be dismissed: in precision machining, losing around 15 percent of output to scrap or rework is still a material cost, and it compounds the other losses because every rejected part has already consumed machine time.
+
+<img width="616" height="350" alt="Screenshot 2026-09-28 at 23 09 26" src="https://github.com/user-attachments/assets/ee3e2dce-1147-4cfe-80a4-75de73f9837a" />
 
 ### 3. The downtime records cannot currently be trusted
 
 In 87 percent of events, the stored reason code contradicts what the operator actually wrote about the stoppage. Any Pareto chart, maintenance plan or supplier conversation built on those codes has been pointing at the wrong causes. This is arguably the most important finding for the organisation, because it explains why years of reporting have not translated into improvement. The governed taxonomy in this workbook corrects the historical record, but the lasting fix is at the point of capture: a single controlled list of reasons, used consistently by every shift.
 
+<img width="700" height="311" alt="Screenshot 2026-09-28 at 23 10 10" src="https://github.com/user-attachments/assets/2148d45e-acc3-41fd-9381-6fba555cb52a" />
+
+
 ### 4. There is no vital few, and that changes the improvement strategy
 
 The classic expectation, and the brief's target, was that 80 percent of lost time would trace to five or fewer causes. The data does not support that. Seven of the eight reasons are needed to reach 80 percent of lost minutes, the largest single reason holds only 12.8 percent of downtime, and the five worst line and reason hotspots combined hold just 6.2 percent. This is a genuine finding, not a failure of the analysis. It tells leadership that targeting one or two causes or one problem line will not move OEE meaningfully, and that funding a handful of point fixes would likely disappoint.
+
+<img width="782" height="302" alt="Screenshot 2026-09-28 at 23 11 06" src="https://github.com/user-attachments/assets/b4aace95-f70e-470e-aaa2-00bfc5a13c06" />
 
 ### 5. Every line has the same downtime fingerprint
 
 The fingerprint analysis compares the mix of downtime causes across all 12 lines, and a chi square test of independence on event counts (12 lines by 8 reasons) finds no significant difference between them (p = 0.579). No line is an outlier with its own distinctive problem. Taken together with the flat Pareto, this points to losses that are systemic, rooted in shared practices such as changeover methods, maintenance routines, material supply and shift handovers, rather than in individual machines. The appropriate response is a plant wide improvement programme, for example standardised work, a structured changeover reduction approach and a common autonomous maintenance routine, rather than line by line firefighting.
 
+<img width="778" height="258" alt="Screenshot 2026-09-28 at 23 12 13" src="https://github.com/user-attachments/assets/9fb73bed-46b9-4a6a-9f20-09d894ed4bfc" />
+
 ### 6. Shift anomalies should prompt questions, not conclusions
 
 The shift variance detector scores all 36 line and shift combinations each week against their own trailing 13 week baseline and flags deviations beyond two standard deviations. This gives supervisors an early signal when a crew or line drifts. However, weekly line and shift OEE rests on around three records, so individual flags are sensitive to single events. The detector is best used as a prompt for a conversation at the next production meeting rather than as evidence of poor performance by a particular shift.
 
+<img width="701" height="361" alt="Screenshot 2026-09-28 at 23 13 17" src="https://github.com/user-attachments/assets/ee255ecb-ed47-4aa3-9e60-1ca9e52ac56e" />
+
+<img width="773" height="394" alt="Screenshot 2026-09-28 at 23 14 21" src="https://github.com/user-attachments/assets/86b1f305-88e4-43c3-bcd4-9772dce028b3" />
+
+<img width="589" height="373" alt="Screenshot 2026-09-28 at 23 15 22" src="https://github.com/user-attachments/assets/c8467c4c-0cfc-4593-b287-80e417cfff83" />
+
 ### 7. The calculation is proven, and the workbook scales predictably
 
 The time weighted OEE engine reproduces an independent Python calculation exactly for all 36 line months in the three month validation window, which gives the plant a figure it can defend to finance and to customers. Performance testing at 61,000 events, four times the supplied volume, showed selector changes taking 3 to 8 seconds compared with 1 to 2 seconds at current volume. Scaling is linear and the workbook remains usable, but a plant generating events at that rate would benefit from moving the engine to Power Pivot or a database in time.
+
+<img width="1204" height="357" alt="Screenshot 2026-09-28 at 23 16 23" src="https://github.com/user-attachments/assets/7aa12d99-4f2f-47c9-8eec-d612c571d1ef" />
+
+<img width="1219" height="486" alt="Screenshot 2026-09-28 at 23 17 49" src="https://github.com/user-attachments/assets/73394020-55dc-4f98-9c79-f11a4b27797b" />
+
 
 ## Recommendations
 
