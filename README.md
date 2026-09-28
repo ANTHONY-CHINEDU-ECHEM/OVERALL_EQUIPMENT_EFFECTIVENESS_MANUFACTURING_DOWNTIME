@@ -1,8 +1,7 @@
-# Manufacturing OEE and Downtime Root Cause Command Workbook
+# Manufacturing OVERALL EQUIPMENT EFFECTIVENESS (OEE) and Downtime Root Cause Command Workbook
 
 An Excel command workbook that unifies downtime reporting into one governed taxonomy, calculates OEE correctly by line and shift, and surfaces root causes, fingerprints and shift anomalies for a 12 line, 3 shift CNC operation. Built from a supplied 15,394 row production extract through a fully documented, eleven step cleaning procedure.
 
-Excel Project 2 of 10 in a data analyst portfolio. Prepared by Anthony Chinedu Echem.
 
 ## Business problem
 
